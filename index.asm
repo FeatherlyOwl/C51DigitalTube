@@ -1,9 +1,9 @@
     ORG     0000H
     AJMP    START
-    ORG     000BH
-    LJMP    T_INT0
+    ;ORG     000BH
+    ;LJMP    T_INT0
     ORG     0050H
-START:  MOV     SP,#60H
+/*START:  MOV     SP,#60H
         MOV     TMOD,#01H
         MOV     TH0,#HIGH(-25000)
         MOV     TL0,#LOW(-25000)
@@ -14,7 +14,10 @@ START:  MOV     SP,#60H
         SETB    TR0
         MOV     R3,#2
         MOV     R1,#8
-        MOV     R2,#4
+        MOV     R2,#4*/
+
+SHOW:   LCALL   MAIN
+
 MAIN:   SETB    P2.7
         CLR     P2.6
         MOV     A,R1
@@ -36,11 +39,11 @@ LOOP1:  DJNZ    R6,LOOP1
         DJNZ    R7,LOOP2
         RET
 TABLE1: DB      0C0H,0F9H,0A4H,0B0H,99H,92H,82H,0F8H,80H,90H
-        ORG     0800H
-T_INT0: MOV     TH0,#HIGH(-25000)
+        ;ORG     0800H
+/*T_INT0: MOV     TH0,#HIGH(-25000)
         MOV     TL0,#LOW(-25000)
         DJNZ    R3,LOOP3
         DEC     R1
         MOV     R2,#20
-LOOP3:  LJMP    MAIN
+LOOP3:  LJMP    MAIN*/
         END
