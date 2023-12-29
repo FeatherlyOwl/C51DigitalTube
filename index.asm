@@ -3,7 +3,10 @@
     ;ORG     000BH
     ;LJMP    T_INT0
     ORG     0050H
-/*START:  MOV     SP,#60H
+START:  MOV     R3,#50
+        MOV     R1,#8
+        MOV     R2,#4
+        /*MOV     SP,#60H
         MOV     TMOD,#01H
         MOV     TH0,#HIGH(-25000)
         MOV     TL0,#LOW(-25000)
@@ -12,12 +15,18 @@
         SETB    EA
         SETB	P3.2
         SETB    TR0
-        MOV     R3,#2
-        MOV     R1,#8
-        MOV     R2,#4*/
+        MOV     R3,#2*/
 
 SHOW:   LCALL   MAIN
-
+        DJNZ    R3,SHOW
+        MOV     R3,#200
+        DEC     R1
+        DJNZ    R1,SHOW
+        DEC     R2
+        DJNZ    R2,SHOW
+        MOV     R1,#9
+        MOV     R2,#9
+        LJMP    SHOW
 MAIN:   SETB    P2.7
         CLR     P2.6
         MOV     A,R1
@@ -32,7 +41,8 @@ MAIN:   SETB    P2.7
         MOVC    A,@A+DPTR
         MOV     P1,A
         ACALL   DELAY
-        AJMP    MAIN
+        
+        RET
 DELAY:  MOV     R7,#10
 LOOP2:  MOV     R6,#250
 LOOP1:  DJNZ    R6,LOOP1
