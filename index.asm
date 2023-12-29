@@ -5,7 +5,8 @@
     ORG     0050H
 START:  MOV     R3,#32H
         MOV     R1,#1H
-        MOV     R2,#4H
+        MOV     R2,#1H
+        MOV	R4,#32H
         /*MOV     SP,#60H
         MOV     TMOD,#01H
         MOV     TH0,#HIGH(-25000)
@@ -16,22 +17,24 @@ START:  MOV     R3,#32H
         SETB	P3.2
         SETB    TR0
         MOV     R3,#2*/
-
 SHOW:   LCALL   MAIN
         DJNZ    R3,SHOW
         MOV     R3,#32H
-        ;DEC     R1
         DJNZ    R1,SHOW
         MOV	R4,#32H
 LOOP4:  LCALL	MAIN
 	LCALL	DELAY
         DJNZ	R4,LOOP4
         MOV     R1,#9H
-        ;DEC     R2
+        MOV	A,R2
+        JZ	LOOP5
         DJNZ    R2,SHOW
-        MOV     R1,#9H
-        MOV     R2,#9H
         LJMP    SHOW
+LOOP5:	MOV	A,R1
+	JZ	LOOP6
+	LJMP	SHOW
+LOOP6:	MOV	R2,#9H
+	LJMP	SHOW
 MAIN:   SETB    P2.7
         CLR     P2.6
         MOV     A,R1
@@ -60,4 +63,5 @@ TABLE1: DB      0C0H,0F9H,0A4H,0B0H,99H,92H,82H,0F8H,80H,90H
         DEC     R1
         MOV     R2,#20
 LOOP3:  LJMP    MAIN*/
+	RET
         END
